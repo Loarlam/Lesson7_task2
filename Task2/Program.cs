@@ -22,6 +22,7 @@ namespace Task2
             _trainNumber = trainNumber;
         }
 
+        public int TrainNumber => _trainNumber;
         public string TrainInformation => $"Поезд №{_trainNumber} отправляется в {_departureTime}, следует до {_destination}";
     }
 
@@ -31,11 +32,12 @@ namespace Task2
         {
             string enteredDestionation, enteredDepartureTime;
             int enteredTrainNumber, searchByNumberOfTrain;
+            int trainNumberCounter = 0;
             Train[] trains = new Train[2];
 
             for (int i = 0; i < trains.Length; i++)
             {
-                Console.Write($"Поезд №{i+1}:\n");
+                Console.Write($"Поезд №{i + 1}:\n");
 
                 Console.Write("пункт назначения = ");
                 enteredDestionation = Console.ReadLine();
@@ -54,12 +56,18 @@ namespace Task2
             do
             {
                 Console.Write("Номер интересующего поезда = ");
-                searchByNumberOfTrain = Int32.Parse(Console.ReadLine())-1;
-                if (searchByNumberOfTrain > trains.Length)
-                    Console.WriteLine("Ошибка! Такого поезда не существует.");
-                else
-                    Console.WriteLine(trains[searchByNumberOfTrain].TrainInformation);
-            } while (searchByNumberOfTrain > trains.Length);
+                searchByNumberOfTrain = Int32.Parse(Console.ReadLine());
+                for (int k = 0; k < trains.Length; k++)
+                {
+                    if (searchByNumberOfTrain == trains[k].TrainNumber)
+                    {
+                        Console.WriteLine(trains[k].TrainInformation);
+                        trainNumberCounter++;
+                    }
+                }
+                if (trainNumberCounter == 0)
+                    Console.WriteLine($"Ошибка! Поездка №{searchByNumberOfTrain} не существует.");
+            } while (trainNumberCounter == 0);
 
             Console.ReadKey();
         }
