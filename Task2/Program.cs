@@ -8,6 +8,12 @@ using System;
 
 namespace Task2
 {
+    struct Train
+    {
+        string _destination, _departureTime;
+        int _trainNumber;
+    }
+
     class Program
     {
         static void Main(string[] args)
