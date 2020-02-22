@@ -12,13 +12,46 @@ namespace Task2
     {
         string _destination, _departureTime;
         int _trainNumber;
+        string[] _array;
+
+        public Train(string destination, int trainNumber, string departureTime)
+        {
+            //Конструктор в структуре должен инициализировать все поля структуры,
+            //иначе ошибки CS0171.
+            _destination = destination;
+            _departureTime = departureTime;
+            _trainNumber = trainNumber;
+            _array = null;
+        }
+
+        public string this[int index]
+        {
+            get { return "" ; }
+        }
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            
+            string enteredDestionation, enteredDepartureTime;
+            int enteredTrainNumber;
+            Train[] trains = new Train[8];
+
+            for (int i = 1; i <= trains.Length; i++)
+            {
+                Console.Write($"Поезд №{i}:\n");
+                Console.Write("пункт назначения = ");
+                enteredDestionation = Console.ReadLine();
+                Console.Write("номер поезда = ");
+                enteredTrainNumber = Int32.Parse(Console.ReadLine());
+                Console.Write("время отправления (hh:mm) = ");
+                enteredDepartureTime = Console.ReadLine();
+                Console.WriteLine();
+                trains[i] = new Train(enteredDestionation, enteredTrainNumber, enteredDepartureTime);
+            }
+
+            Console.ReadKey();
         }
     }
 }
