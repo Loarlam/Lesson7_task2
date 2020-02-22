@@ -10,9 +10,8 @@ namespace Task2
 {
     struct Train
     {
-        string _destination, _departureTime;
-        int _trainNumber;
-        string[] _array;
+        readonly string _destination, _departureTime;
+        readonly int _trainNumber;
 
         public Train(string destination, int trainNumber, string departureTime)
         {
@@ -21,13 +20,9 @@ namespace Task2
             _destination = destination;
             _departureTime = departureTime;
             _trainNumber = trainNumber;
-            _array = null;
         }
 
-        public string this[int index]
-        {
-            get { return "" ; }
-        }
+        public string TrainInformation => $"Поезд №{_trainNumber} отправляется в {_departureTime}, следует до {_destination}";
     }
 
     class Program
@@ -35,21 +30,36 @@ namespace Task2
         static void Main(string[] args)
         {
             string enteredDestionation, enteredDepartureTime;
-            int enteredTrainNumber;
-            Train[] trains = new Train[8];
+            int enteredTrainNumber, searchByNumberOfTrain;
+            Train[] trains = new Train[2];
 
-            for (int i = 1; i <= trains.Length; i++)
+            for (int i = 0; i < trains.Length; i++)
             {
-                Console.Write($"Поезд №{i}:\n");
+                Console.Write($"Поезд №{i+1}:\n");
+
                 Console.Write("пункт назначения = ");
                 enteredDestionation = Console.ReadLine();
+
                 Console.Write("номер поезда = ");
                 enteredTrainNumber = Int32.Parse(Console.ReadLine());
+
                 Console.Write("время отправления (hh:mm) = ");
                 enteredDepartureTime = Console.ReadLine();
+
                 Console.WriteLine();
+
                 trains[i] = new Train(enteredDestionation, enteredTrainNumber, enteredDepartureTime);
             }
+
+            do
+            {
+                Console.Write("Номер интересующего поезда = ");
+                searchByNumberOfTrain = Int32.Parse(Console.ReadLine())-1;
+                if (searchByNumberOfTrain > trains.Length)
+                    Console.WriteLine("Ошибка! Такого поезда не существует.");
+                else
+                    Console.WriteLine(trains[searchByNumberOfTrain].TrainInformation);
+            } while (searchByNumberOfTrain > trains.Length);
 
             Console.ReadKey();
         }
