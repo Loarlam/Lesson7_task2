@@ -8,6 +8,11 @@ using System;
 
 namespace Task2
 {
+    class Sort
+    {
+
+    }
+
     struct Train
     {
         readonly string _destination, _departureTime;
@@ -33,17 +38,18 @@ namespace Task2
             string enteredDestionation, enteredDepartureTime;
             int enteredTrainNumber, searchByNumberOfTrain;
             int trainNumberCounter = 0;
+            int[] arraySort = new int[2];
             Train[] trains = new Train[2];
 
             for (int i = 0; i < trains.Length; i++)
             {
                 Console.Write($"Поезд №{i + 1}:\n");
 
-                Console.Write("пункт назначения = ");
-                enteredDestionation = Console.ReadLine();
-
                 Console.Write("номер поезда = ");
                 enteredTrainNumber = Int32.Parse(Console.ReadLine());
+
+                Console.Write("пункт назначения = ");
+                enteredDestionation = Console.ReadLine();                
 
                 Console.Write("время отправления (hh:mm) = ");
                 enteredDepartureTime = Console.ReadLine();
@@ -53,18 +59,34 @@ namespace Task2
                 trains[i] = new Train(enteredDestionation, enteredTrainNumber, enteredDepartureTime);
             }
 
+            for (int k = 0; k < trains.Length; k++)
+            {
+                arraySort[k] = trains[k].TrainNumber;
+                if (k == trains.Length - 1)
+                    Array.Sort(arraySort);
+            }
+
+            Console.Write($"Номера всех поездов (отсортированные): ");
+            for (int l = 0; l < trains.Length; l++)
+            {
+                Console.Write($"{arraySort[l]} ");
+            }
+            Console.WriteLine();
+
             do
             {
-                Console.Write("Номер интересующего поезда = ");
+                Console.Write("\nНомер интересующего поезда = ");
                 searchByNumberOfTrain = Int32.Parse(Console.ReadLine());
-                for (int k = 0; k < trains.Length; k++)
+
+                for (int m = 0; m < trains.Length; m++)
                 {
-                    if (searchByNumberOfTrain == trains[k].TrainNumber)
+                    if (searchByNumberOfTrain == trains[m].TrainNumber)
                     {
-                        Console.WriteLine(trains[k].TrainInformation);
+                        Console.WriteLine(trains[m].TrainInformation);
                         trainNumberCounter++;
                     }
                 }
+
                 if (trainNumberCounter == 0)
                     Console.WriteLine($"Ошибка! Поездка №{searchByNumberOfTrain} не существует.");
             } while (trainNumberCounter == 0);
